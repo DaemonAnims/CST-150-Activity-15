@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Activity_15
 {
+    //City class for display cities in combobox
     public class City
     {
 

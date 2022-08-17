@@ -21,6 +21,7 @@ namespace Activity_15
         //Load function, populates countryCombobox
         private void LuckyNumberGenerator_Load(object sender, EventArgs e)
         {
+            //Create countries and assign arbitrary values for lucky number solution
             var countryList = new List<Country>();
             countryList.Add(new Country("Australia", 9));
             countryList.Add(new Country("United States of America", 1));
@@ -38,6 +39,7 @@ namespace Activity_15
             countryList.Add(new Country("Czech Republic", 14));
             countryList.Add(new Country("China", 7));
             countryList.Add(new Country("India", 15));
+            //populate countries with their individual cities to visit
             PopulateCountries(countryList);
 
             //assign list to countryCombobox
@@ -60,8 +62,10 @@ namespace Activity_15
            
         }
 
+        //method to add cities to countries
         private static void PopulateCountries(List<Country> countries)
         {
+            //loop through each country, using their value in a switch statement to differentiate cities
             foreach (Country country in countries)
             {
                 switch (country.Value)
@@ -182,16 +186,25 @@ namespace Activity_15
             }
         }
 
+        //button click for getting lucky number generated
         private void luckyNumButton_Click(object sender, EventArgs e)
         {
+            //find lucky number
             int luckyNumber = GetLuckyNumber((Country)countryCombo.SelectedItem, (City)cityCombo.SelectedItem, colorButton.BackColor);
+            
+            //generate new form
             LuckyNumberDisplay display = new LuckyNumberDisplay();
+            //change lucky number label to show correct lucky number
             display.luckyNumLabel.Text = luckyNumber.ToString();
+            //display new form
             display.ShowDialog();
         }
 
+        //method to derive lucky number
         private static int GetLuckyNumber(Country country, City city, Color color)
         {
+            //use RGB values from favorite color and country and city values, then mod by 100 to get lucky number from 0-99
+            //Note: If favorite color is pure black, lucky number will always be 0
             int lucky = ((color.R + color.B + color.G) * ((country.Value * 2) + (city.Value * 5))) % 100;
             return lucky;
         }
